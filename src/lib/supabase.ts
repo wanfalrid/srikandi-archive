@@ -23,10 +23,25 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 // Pastikan environment variables sudah di-set
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error(
-    "Supabase URL dan Anon Key harus di-set di environment variables!\n" +
-      "Buat file .env.local dengan isi:\n" +
-      "NEXT_PUBLIC_SUPABASE_URL=your-supabase-url\n" +
-      "NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key",
+    "\n\n❌ ERROR FATAL: Konfigurasi Supabase Hilang!\n" +
+      "----------------------------------------------------\n" +
+      "Environment Variables belum di-set. Aplikasi tidak bisa berjalan.\n\n" +
+      "👉 SOLUSI LOCAL (Di Komputer Sendiri):\n" +
+      "   Pastikan file .env.local ada dan berisi:\n" +
+      "   NEXT_PUBLIC_SUPABASE_URL=...\n" +
+      "   NEXT_PUBLIC_SUPABASE_ANON_KEY=...\n\n" +
+      "👉 SOLUSI VERCEL (Saat Deploy):\n" +
+      "   1. Buka Dashboard Project anda di Vercel\n" +
+      "   2. Klik menu 'Settings' (di atas)\n" +
+      "   3. Pilih menu 'Environment Variables' (di kiri)\n" +
+      "   4. Masukkan Variable:\n" +
+      "      - Key: NEXT_PUBLIC_SUPABASE_URL\n" +
+      "      - Value: (Copy dari Supabase Project Settings)\n" +
+      "   5. Tambah lagi:\n" +
+      "      - Key: NEXT_PUBLIC_SUPABASE_ANON_KEY\n" +
+      "      - Value: (Copy dari Supabase Project Settings)\n" +
+      "   6. Redeploy project anda.\n" +
+      "----------------------------------------------------\n",
   );
 }
 
