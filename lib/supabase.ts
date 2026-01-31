@@ -8,6 +8,7 @@
  */
 
 import { createBrowserClient } from "@supabase/ssr";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 
 // -----------------------------------------------------------------------------
 // Environment Variables
@@ -32,9 +33,13 @@ if (!supabaseUrl || !supabaseAnonKey) {
 // -----------------------------------------------------------------------------
 // Supabase Client Instance
 // -----------------------------------------------------------------------------
-// Buat instance Supabase client untuk digunakan di seluruh aplikasi (Client Side)
-// Menggunakan createBrowserClient agar session tersimpan di Cookies
-export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
+// Gunakan instance yang sesuai dengan environment (Browser vs Server)
+// - Di Browser: Gunakan createBrowserClient (dari @supabase/ssr) agar auth cookies bekerja
+// - Di Server (Build Time/SSG): Gunakan createSupabaseClient (dari supabase-js) untuk fetch data public
+export const supabase = 
+  typeof window !== "undefined"
+    ? createBrowserClient(supabaseUrl, supabaseAnonKey)
+    : createSupabaseClient(supabaseUrl, supabaseAnonKey);
 
 // -----------------------------------------------------------------------------
 // Type Definitions
